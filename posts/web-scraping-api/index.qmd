@@ -213,6 +213,12 @@ Furthermore, the mean depth of Japan and Peru are significantly greater than Cal
 
 Therefore, we found that the Japan and Peru have earthquakes that has greater depth compared to California.
 
+### Limitations
+
+For this project, I chose to collect earthquakes with a magnitude of 4.0 or greater because I wanted to focus on earthquakes that are more likely to be noticeable in real life. However, this means that smaller earthquakes were not included in the data, which could affect the comparison between different regions could lead to having less information about the earthquakes in California than the information that actually exist.
+
+Also, the sample sizes were very different between regions. Japan had 373 earthquakes while California only had 11 earthquakes. Since California has much fewer observations, the results could be more affected by individual earthquakes. Therefore, this analysis might not fully represent all earthquakes that occur in these regions.
+
 ## 6. Further Resources
 
 - [USGS Earthquake Catalog API](https://earthquake.usgs.gov/fdsnws/event/1/)
