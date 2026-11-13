@@ -173,6 +173,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#how-frequently-do-earthquakes-occur-in-each-region" id="toc-how-frequently-do-earthquakes-occur-in-each-region" class="nav-link" data-scroll-target="#how-frequently-do-earthquakes-occur-in-each-region">How Frequently Do Earthquakes Occur in Each Region?</a></li>
   <li><a href="#relationship-between-magnitude-and-depth-of-each-regions" id="toc-relationship-between-magnitude-and-depth-of-each-regions" class="nav-link" data-scroll-target="#relationship-between-magnitude-and-depth-of-each-regions">Relationship Between Magnitude and Depth of Each Regions</a></li>
+  <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations">Limitations</a></li>
   </ul></li>
   <li><a href="#further-resources" id="toc-further-resources" class="nav-link" data-scroll-target="#further-resources">6. Further Resources</a></li>
   </ul>
@@ -237,7 +238,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="making-an-api-request">Making an API Request</h3>
 <p>I used Python’s <code>requests</code> library to send GET requests to the API. The API returns earthquake records in GeoJSON format, which contains information about each earthquake.</p>
 <p>For this project, I collected earthquakes that occurred between January 1 – June 1, 2025 in Japan, Peru, and California, which has minimum magnitude of 4.0. I selected the regions by defining specific latitude and longitude for the areas that are scraped.</p>
-<div id="e8ca2777" class="cell" data-execution_count="1">
+<div id="72104126" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
@@ -290,7 +291,7 @@ Peru 142</code></pre>
 <h3 class="anchored" data-anchor-id="preparing-the-dataset">Preparing the Dataset</h3>
 <p>After collecting the raw data, I converted the earthquake records into a DataFrame.</p>
 <p>The GeoJSON response contains a list called <code>features</code>, where each feature represents an earthquake. I extracted information from the <code>properties</code> and <code>geometry</code> sections of each event.</p>
-<div id="e80f8c06" class="cell" data-execution_count="2">
+<div id="c5c9bb4c" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>earthquakes <span class="op">=</span> []</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> record <span class="kw">in</span> raw_earthquakes:</span>
@@ -389,7 +390,7 @@ dtype: int64
 <p>After collecting and cleaning the dataset, I wanted to explore how earthquake magnitudes and depths differ across the three selected regions.</p>
 <section id="how-frequently-do-earthquakes-occur-in-each-region" class="level3">
 <h3 class="anchored" data-anchor-id="how-frequently-do-earthquakes-occur-in-each-region">How Frequently Do Earthquakes Occur in Each Region?</h3>
-<div id="29adfbbe" class="cell" data-execution_count="3">
+<div id="6cb4fec7" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>earthquake_japan <span class="op">=</span> earthquake_data.loc[earthquake_data[<span class="st">"region"</span>] <span class="op">==</span> <span class="st">"Japan"</span>, :]</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>earthquake_peru <span class="op">=</span> earthquake_data.loc[earthquake_data[<span class="st">"region"</span>] <span class="op">==</span> <span class="st">"Peru"</span>, :]</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>earthquake_california <span class="op">=</span> earthquake_data.loc[earthquake_data[<span class="st">"region"</span>] <span class="op">==</span> <span class="st">"California"</span>, :]</span>
@@ -408,7 +409,7 @@ dtype: int64
 </section>
 <section id="relationship-between-magnitude-and-depth-of-each-regions" class="level3">
 <h3 class="anchored" data-anchor-id="relationship-between-magnitude-and-depth-of-each-regions">Relationship Between Magnitude and Depth of Each Regions</h3>
-<div id="4dd28ffe" class="cell" data-execution_count="4">
+<div id="cca7d968" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(data<span class="op">=</span>earthquake_data, x<span class="op">=</span><span class="st">"magnitude"</span>, y<span class="op">=</span><span class="st">"depth"</span>, hue<span class="op">=</span><span class="st">"region"</span>, ax <span class="op">=</span> ax) </span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Earthquake Magnitude vs. Depth by Region"</span>)</span>
@@ -430,7 +431,7 @@ dtype: int64
 <p>Looking at the scatterplot, the earthquakes from California are focused on the left bottom of the plot, having depth around 0-10 km and magnitude mainly around 4.0-5.0. The earthquakes from Peru has a wider range of depth and magnitude, having magnitude between 4.0-6.0 and depth mainly between 0-300km. The earthquakes from Japan have the most spread observations, having magnitude between 4.0-7.0 and depth between 0-600 km.</p>
 <p>Although there are a few outliers for each regions, California have the least earthquakes with comparatively less magnitude and depth. Peru and Japan have earthquakes that have magnitude larger than 5.0 and the depth are extremely deeper compared to earthquakes in California.</p>
 <p>Although these plots cannot fully explain the geological causes of earthquakes, they help us understand that Japan and Peru have a higher occurrence and severity of earthquakes.</p>
-<div id="62e09715" class="cell" data-execution_count="5">
+<div id="35d676a4" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(earthquake_japan[<span class="st">"magnitude"</span>].mean())</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(earthquake_peru[<span class="st">"magnitude"</span>].mean())</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(earthquake_california[<span class="st">"magnitude"</span>].mean())</span>
@@ -480,6 +481,11 @@ dtype: int64
 <p>The table shows that the mean magnitude of Japan and Peru are about 0.13-0.15 greater than California. Although the spread of the earthquake from Japan and Peru were larger than California, they have the greater number of observations that had magnitude around 4.0- 4.5.</p>
 <p>Furthermore, the mean depth of Japan and Peru are significantly greater than California. Japan has mean depth 8 times greater than California and Peru has mean depth 9.5 times greater than California.</p>
 <p>Therefore, we found that the Japan and Peru have earthquakes that has greater depth compared to California.</p>
+</section>
+<section id="limitations" class="level3">
+<h3 class="anchored" data-anchor-id="limitations">Limitations</h3>
+<p>For this project, I chose to collect earthquakes with a magnitude of 4.0 or greater because I wanted to focus on earthquakes that are more likely to be noticeable in real life. However, this means that smaller earthquakes were not included in the data, which could affect the comparison between different regions could lead to having less information about the earthquakes in California than the information that actually exist.</p>
+<p>Also, the sample sizes were very different between regions. Japan had 373 earthquakes while California only had 11 earthquakes. Since California has much fewer observations, the results could be more affected by individual earthquakes. Therefore, this analysis might not fully represent all earthquakes that occur in these regions.</p>
 </section>
 </section>
 <section id="further-resources" class="level2">
